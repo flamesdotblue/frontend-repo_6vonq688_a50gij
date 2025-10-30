@@ -1,5 +1,6 @@
 import React from 'react';
-import { Code, Brain, Database, Cloud, Shield, GitBranch, Palette } from 'lucide-react';
+import { Code, Brain, Database, Cloud, Shield, GitBranch } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const skills = [
   {
@@ -40,6 +41,16 @@ const skills = [
   },
 ];
 
+const parent = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+const card = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 90, damping: 14 } },
+};
+
 const Skills = () => {
   return (
     <section id="skills" className="relative mx-auto max-w-6xl px-6 py-16">
@@ -50,11 +61,19 @@ const Skills = () => {
         </div>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <motion.div
+        variants={parent}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: '-100px' }}
+        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+      >
         {skills.map(({ title, icon: Icon, items, color }) => (
-          <div
+          <motion.div
             key={title}
-            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-xl backdrop-blur transition hover:-translate-y-1 hover:bg-white/[0.06]"
+            variants={card}
+            whileHover={{ y: -6, scale: 1.02 }}
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-xl backdrop-blur"
           >
             <div className={`absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br ${color} opacity-30 blur-2xl`} />
             <div className="relative z-10">
@@ -70,9 +89,9 @@ const Skills = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

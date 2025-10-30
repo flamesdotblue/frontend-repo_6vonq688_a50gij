@@ -1,5 +1,6 @@
 import React from 'react';
 import { Rocket, Sparkles, Workflow } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const projects = [
   {
@@ -33,8 +34,15 @@ const Projects = () => {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {projects.map(({ title, icon: Icon, summary, stack }) => (
-          <article key={title} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-xl backdrop-blur">
+        {projects.map(({ title, icon: Icon, summary, stack }, idx) => (
+          <motion.article
+            key={title}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ delay: idx * 0.05, type: 'spring', stiffness: 90, damping: 14 }}
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-xl backdrop-blur"
+          >
             <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-[80px] bg-gradient-to-br from-indigo-500/30 to-fuchsia-500/30" />
             <div className="relative z-10">
               <div className="mb-3 inline-flex rounded-lg bg-white/10 p-2 text-white">
@@ -50,7 +58,11 @@ const Projects = () => {
                 ))}
               </div>
             </div>
-          </article>
+            {/* shine */}
+            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <div className="absolute -inset-x-10 -inset-y-10 rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            </div>
+          </motion.article>
         ))}
       </div>
     </section>

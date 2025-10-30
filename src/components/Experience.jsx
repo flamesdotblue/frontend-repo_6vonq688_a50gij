@@ -1,5 +1,6 @@
 import React from 'react';
 import { Briefcase } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const roles = [
   {
@@ -36,7 +37,14 @@ const Experience = () => {
 
       <div className="space-y-6">
         {roles.map((r) => (
-          <div key={r.role} className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-xl backdrop-blur">
+          <motion.div
+            key={r.role}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ type: 'spring', stiffness: 80, damping: 14 }}
+            className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-xl backdrop-blur"
+          >
             <div className="flex flex-col justify-between gap-3 md:flex-row md:items-center">
               <div>
                 <h3 className="text-xl font-medium text-white">{r.role}</h3>
@@ -49,11 +57,17 @@ const Experience = () => {
                 <li key={b}>{b}</li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.4 }}
+        className="mt-8 grid gap-4 sm:grid-cols-2"
+      >
         <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
           <h4 className="text-white">Certifications</h4>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-white/80">
@@ -73,7 +87,7 @@ const Experience = () => {
             <li>SSLC — Sri Sathya Sai Loka Seva Vidya Kendra (2019) • 90.2%</li>
           </ul>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
